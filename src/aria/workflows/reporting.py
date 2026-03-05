@@ -31,6 +31,8 @@ def generate_weekly_report(
 ) -> WeeklyReportResult:
     week_end = week_start + timedelta(days=7)
     snapshot = repo.metrics_snapshot(week_start.isoformat(), week_end.isoformat())
+    quality = repo.quality_summary(week_start.isoformat(), week_end.isoformat())
+    publish_counts = repo.publication_status_counts()
 
     achieved = {
         "content_count": snapshot.content_count,
@@ -44,6 +46,8 @@ def generate_weekly_report(
         "week_end_exclusive": week_end.isoformat(),
         "targets": TARGETS,
         "achieved": achieved,
+        "quality": quality,
+        "publish_counts": publish_counts,
     }
 
     lines = [
@@ -68,8 +72,17 @@ def generate_weekly_report(
             "## Notes",
             "- External community publishing remains human-approved by design.",
             "- This report can be posted directly in weekly async check-ins.",
+            "",
+            "## Quality",
+            f"- Global average score: {quality['global_avg']}",
+            f"- Scored artifacts: {quality['total_count']}",
         ]
     )
+    if publish_counts:
+        lines.append("")
+        lines.append("## Publish Queue Status")
+        for status, count in sorted(publish_counts.items()):
+            lines.append(f"- {status}: {count}")
 
     path = write_text(
         settings.artifacts_dir / "reports" / f"{week_start.isoformat()}_weekly_report.md",

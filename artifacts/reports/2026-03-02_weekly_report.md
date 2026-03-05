@@ -14,3 +14,7 @@
 ## Notes
 - External community publishing remains human-approved by design.
 - This report can be posted directly in weekly async check-ins.
+
+## Quality
+- Global average score: 93.33
+- Scored artifacts: 6

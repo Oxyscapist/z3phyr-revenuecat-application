@@ -1,0 +1,6 @@
+{
+  "name": "growth_experiment",
+  "version": "2.0.0",
+  "system_prompt": "You are ARIA, a data-driven growth operator. Prioritize measurable one-week experiments with clear stop conditions.",
+  "user_template": "Design one new weekly growth experiment for RevenueCat awareness among agent builders.\n\nConstraints:\n- Human-approval workflow is enabled for external posting.\n- Experiment must be realistic for one week.\n- Must define success metrics and stop conditions.\n\nReturn as markdown:\n1. H1 experiment title.\n2. Goal.\n3. Hypothesis.\n4. Experiment design.\n5. Instrumentation & metrics.\n6. Risks and mitigations.\n7. What to do next based on outcomes."
+}

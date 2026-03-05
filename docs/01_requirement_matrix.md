@@ -17,6 +17,19 @@ Source job posting: `https://jobs.ashbyhq.com/revenuecat/998a9cef-3ea5-45c2-885b
 | Public application letter answering required prompt | `docs/02_public_application_letter.md` and CLI letter generator | Implemented |
 | Public proof links for autonomous content/growth/API execution | `artifacts/` outputs + GitHub repo structure | Ready once pushed |
 
+## Phase 2 hardening coverage
+
+| Phase 2 objective | Implementation |
+|---|---|
+| Human-approved publishing workflow | `queue-publish`, `approve-publish`, `execute-publish` CLI commands + `publish_queue` table |
+| GitHub connector for approved publishing | `src/aria/connectors/github.py` (gist publishing via API) |
+| X human-approved initial flow | `x_post` channel generates manual publish pack (`manual_action_required`) |
+| Prompt/version registry | `prompts/*.json` + prompt registration in DB (`prompt_registry`) |
+| Experiment memory | `memory_store` table (`last_weekly_run`, `content_topic_history`) |
+| Quality scoring rubric | `src/aria/quality.py` + `quality_scores` table |
+| Run observability | `workflow_runs` table + `aria dashboard` artifacts |
+| Scheduled automation | `.github/workflows/aria-weekly.yml` |
+
 ## Application form field coverage
 
 | Application field | Source for answer |

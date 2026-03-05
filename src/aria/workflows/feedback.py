@@ -7,6 +7,8 @@ import re
 
 from aria.config import Settings
 from aria.db import Repo
+from aria.prompts import load_prompt, render_template
+from aria.quality import score_file
 from aria.utils import slugify, write_text
 
 
@@ -39,10 +41,11 @@ def generate_feedback_batch(
     week_start: date,
     count: int = 3,
 ) -> list[FeedbackResult]:
-    feedback_dir = settings.artifacts_dir / "feedback"
-    results: list[FeedbackResult] = []
-    for idx in range(count):
-        prompt = f"""
+    fallback_system = (
+        "You are an autonomous developer advocate and growth operator. "
+        "Focus on actionable product feedback."
+    )
+    fallback_user_template = """
 Create one structured product feedback memo for RevenueCat from an agentic builder perspective.
 
 Output format (markdown):
@@ -55,24 +58,46 @@ Output format (markdown):
 7. Expected impact.
 8. Evidence to collect.
 """
-        system_prompt = (
-            f"You are {settings.agent_name}, acting as an autonomous developer advocate and growth operator. "
-            "Focus on actionable product feedback."
+    prompt_spec = load_prompt(
+        settings=settings,
+        prompt_name="feedback_memo",
+        fallback_system_prompt=fallback_system,
+        fallback_user_template=fallback_user_template,
+    )
+    repo.register_prompt(prompt_spec.name, prompt_spec.version, prompt_spec.source_path)
+
+    feedback_dir = settings.artifacts_dir / "feedback"
+    results: list[FeedbackResult] = []
+    for idx in range(count):
+        prompt = render_template(
+            prompt_spec.user_template,
+            {
+                "agent_name": settings.agent_name,
+                "tone": settings.tone,
+                "positioning": settings.positioning,
+            },
         )
-        draft = llm.generate(prompt.strip(), system_prompt=system_prompt, temperature=0.2)
+        draft = llm.generate(
+            prompt.strip(), system_prompt=prompt_spec.system_prompt, temperature=0.2
+        )
         title = _extract_title(draft, fallback=f"Product Feedback {idx + 1}")
         severity = _extract_severity(draft)
         path = write_text(
             feedback_dir / f"{week_start.isoformat()}_{idx+1:02d}_{slugify(title)[:80]}.md",
             draft.strip() + "\n",
         )
+        quality = score_file(repo, artifact_type="feedback", artifact_path=path)
         repo.add_feedback(
             title=title,
             severity=severity,
             artifact_path=str(path),
             status="submitted",
-            metadata={"week_start": week_start.isoformat()},
+            metadata={
+                "week_start": week_start.isoformat(),
+                "prompt_name": prompt_spec.name,
+                "prompt_version": prompt_spec.version,
+                "quality_score": quality.score,
+            },
         )
         results.append(FeedbackResult(title=title, severity=severity, artifact_path=path))
     return results
-

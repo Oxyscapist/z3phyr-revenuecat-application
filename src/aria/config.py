@@ -16,8 +16,12 @@ class Settings:
     gemini_api_key: str | None
     openai_api_key: str | None
     openai_base_url: str
+    github_token: str | None
+    x_bearer_token: str | None
+    approval_mode: str
     data_dir: Path
     artifacts_dir: Path
+    prompts_dir: Path
     db_path: Path
 
     @classmethod
@@ -25,6 +29,9 @@ class Settings:
         data_dir = Path(os.environ.get("ARIA_DATA_DIR", root / "data")).resolve()
         artifacts_dir = Path(
             os.environ.get("ARIA_ARTIFACTS_DIR", root / "artifacts")
+        ).resolve()
+        prompts_dir = Path(
+            os.environ.get("ARIA_PROMPTS_DIR", root / "prompts")
         ).resolve()
         return cls(
             agent_name=os.environ.get("ARIA_AGENT_NAME", "ARIA"),
@@ -41,8 +48,12 @@ class Settings:
             openai_base_url=os.environ.get(
                 "OPENAI_BASE_URL", "https://api.openai.com/v1"
             ),
+            github_token=os.environ.get("ARIA_GITHUB_TOKEN", os.environ.get("GITHUB_TOKEN")),
+            x_bearer_token=os.environ.get("ARIA_X_BEARER_TOKEN"),
+            approval_mode=os.environ.get("ARIA_APPROVAL_MODE", "human").strip().lower(),
             data_dir=data_dir,
             artifacts_dir=artifacts_dir,
+            prompts_dir=prompts_dir,
             db_path=Path(os.environ.get("ARIA_DB_PATH", data_dir / "aria.db")),
         )
 

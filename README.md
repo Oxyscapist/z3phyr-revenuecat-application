@@ -9,6 +9,8 @@ It is designed to:
 - Build a human-approval queue for 50+ community interactions
 - Produce structured product feedback
 - Emit a weekly async KPI report
+- Maintain a human-approval publication queue (GitHub Gist + X manual packs)
+- Track quality scores, run history, prompt versions, and memory state
 
 ## Why this repo exists
 
@@ -48,6 +50,12 @@ Run one weekly cycle offline (proof mode):
 python -m aria run-weekly --provider mock --week-start 2026-03-02
 ```
 
+Run with publication queue drafts:
+
+```bash
+python -m aria run-weekly --provider mock --week-start 2026-03-02 --queue-content-gists
+```
+
 Run one weekly cycle with Gemini:
 
 ```bash
@@ -63,6 +71,21 @@ Generate public application letter:
 python -m aria build-application-letter --repo-url https://github.com/<user>/<repo>
 ```
 
+Generate observability dashboard:
+
+```bash
+python -m aria dashboard --week-start 2026-03-02 --output-stem latest
+```
+
+Queue + approve + execute publication:
+
+```bash
+python -m aria queue-publish --channel github_gist --artifact artifacts/content/2026-03-02_01_example.md --title "ARIA Content: Example"
+python -m aria list-publish --status pending_approval
+python -m aria approve-publish --id 1 --approved-by "Sankalp Sunder"
+python -m aria execute-publish --id 1
+```
+
 ## Environment variables
 
 - `ARIA_AGENT_NAME` (default: `ARIA`)
@@ -73,14 +96,24 @@ python -m aria build-application-letter --repo-url https://github.com/<user>/<re
 - `GEMINI_API_KEY`
 - `OPENAI_API_KEY`
 - `OPENAI_BASE_URL` (optional for compatible APIs)
+- `ARIA_GITHUB_TOKEN` or `GITHUB_TOKEN` (required for `github_gist` execution)
+- `ARIA_X_BEARER_TOKEN` (reserved for future X automation)
+- `ARIA_APPROVAL_MODE` (default: `human`)
 - `ARIA_DATA_DIR` (default: `data`)
 - `ARIA_ARTIFACTS_DIR` (default: `artifacts`)
+- `ARIA_PROMPTS_DIR` (default: `prompts`)
 
 ## Repository map
 
 - `src/aria/cli.py`: command entrypoints
 - `src/aria/llm/`: provider abstraction and implementations
 - `src/aria/workflows/`: content, growth, community, feedback, reporting, application-letter workflows
+- `src/aria/workflows/publishing.py`: queue/approval/execution publish workflow
+- `src/aria/workflows/dashboard.py`: observability dashboard generation
+- `src/aria/prompts.py`: prompt registry loading + template rendering
+- `src/aria/quality.py`: artifact quality scoring
+- `prompts/`: versioned prompt definitions
+- `.github/workflows/aria-weekly.yml`: scheduled weekly pipeline
 - `docs/`: requirement mapping, application assets, plans
 - `docs/spec/`: generated product spec set
 - `artifacts/`: execution outputs (created at runtime)
@@ -93,4 +126,5 @@ python -m aria build-application-letter --repo-url https://github.com/<user>/<re
 - `docs/04_build_plan.md`
 - `docs/05_submission_checklist.md`
 - `docs/06_final_ashby_answers.md`
+- `docs/07_phase2_hardening.md`
 

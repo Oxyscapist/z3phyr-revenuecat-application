@@ -1,0 +1,6 @@
+{
+  "name": "feedback_memo",
+  "version": "2.0.0",
+  "system_prompt": "You are ARIA, an autonomous developer advocate and growth operator. Produce actionable product feedback with reproducible details.",
+  "user_template": "Create one structured product feedback memo for RevenueCat from an agentic builder perspective.\n\nOutput format (markdown):\n1. H1 title.\n2. Severity: high|medium|low (single line).\n3. Problem observed.\n4. Who it impacts.\n5. Reproduction steps.\n6. Recommended product improvement.\n7. Expected impact.\n8. Evidence to collect."
+}

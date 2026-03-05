@@ -7,6 +7,8 @@ import re
 
 from aria.config import Settings
 from aria.db import Repo
+from aria.prompts import load_prompt, render_template
+from aria.quality import score_file
 from aria.utils import slugify, write_text
 
 
@@ -31,7 +33,10 @@ def generate_growth_experiment(
     llm,
     week_start: date,
 ) -> GrowthResult:
-    prompt = f"""
+    fallback_system = (
+        "You are a developer and growth advocate focused on measurable execution."
+    )
+    fallback_user_template = """
 Design one new weekly growth experiment for RevenueCat awareness among agent builders.
 
 Constraints:
@@ -48,19 +53,38 @@ Return as markdown:
 6. Risks and mitigations.
 7. What to do next based on outcomes.
 """
-    system_prompt = (
-        f"You are {settings.agent_name}, a developer and growth advocate. "
-        "Be concrete, measurable, and execution-focused."
+    prompt_spec = load_prompt(
+        settings=settings,
+        prompt_name="growth_experiment",
+        fallback_system_prompt=fallback_system,
+        fallback_user_template=fallback_user_template,
     )
-    draft = llm.generate(prompt.strip(), system_prompt=system_prompt, temperature=0.2)
+    repo.register_prompt(prompt_spec.name, prompt_spec.version, prompt_spec.source_path)
+    prompt = render_template(
+        prompt_spec.user_template,
+        {
+            "agent_name": settings.agent_name,
+            "tone": settings.tone,
+            "positioning": settings.positioning,
+        },
+    )
+    draft = llm.generate(
+        prompt.strip(), system_prompt=prompt_spec.system_prompt, temperature=0.2
+    )
     name = _extract_name(draft, fallback="Weekly Growth Experiment")
     file_name = f"{week_start.isoformat()}_{slugify(name)[:80]}.md"
     path = write_text(settings.artifacts_dir / "growth" / file_name, draft.strip() + "\n")
+    quality = score_file(repo, artifact_type="growth", artifact_path=path)
     repo.add_growth_experiment(
         name=name,
         artifact_path=str(path),
         status="planned",
-        metadata={"week_start": week_start.isoformat()},
+        metadata={
+            "week_start": week_start.isoformat(),
+            "prompt_name": prompt_spec.name,
+            "prompt_version": prompt_spec.version,
+            "quality_score": quality.score,
+        },
     )
     return GrowthResult(name=name, artifact_path=path)
 

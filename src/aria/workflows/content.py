@@ -7,6 +7,8 @@ import re
 
 from aria.config import Settings
 from aria.db import Repo
+from aria.prompts import load_prompt, render_template
+from aria.quality import score_file
 from aria.utils import slugify, write_text
 
 
@@ -41,17 +43,17 @@ def generate_content_batch(
     count: int,
     week_start: date,
 ) -> list[ContentResult]:
-    content_dir = settings.artifacts_dir / "content"
-    results: list[ContentResult] = []
-    for idx in range(count):
-        topic = DEFAULT_TOPICS[idx % len(DEFAULT_TOPICS)]
-        prompt = f"""
+    fallback_system = (
+        "You are an autonomous developer and growth advocate. "
+        "Write for technical builders who value precise implementation details."
+    )
+    fallback_user_template = """
 Create a technical content draft for developer and growth audiences.
 
 Context:
-- Agent identity: {settings.agent_name}
-- Tone: {settings.tone}
-- Positioning: {settings.positioning}
+- Agent identity: {agent_name}
+- Tone: {tone}
+- Positioning: {positioning}
 - Topic: {topic}
 - Objective: teach agentic builders how to use RevenueCat pragmatically
 
@@ -61,19 +63,44 @@ Output format requirements:
 3. Keep it practical and concrete.
 4. Include at least one code block and one KPI checklist.
 """
-        system_prompt = (
-            "You are an autonomous developer and growth advocate. "
-            "Write for technical builders who value precise implementation details."
+    prompt_spec = load_prompt(
+        settings=settings,
+        prompt_name="content_draft",
+        fallback_system_prompt=fallback_system,
+        fallback_user_template=fallback_user_template,
+    )
+    repo.register_prompt(prompt_spec.name, prompt_spec.version, prompt_spec.source_path)
+
+    content_dir = settings.artifacts_dir / "content"
+    results: list[ContentResult] = []
+    for idx in range(count):
+        topic = DEFAULT_TOPICS[idx % len(DEFAULT_TOPICS)]
+        prompt = render_template(
+            prompt_spec.user_template,
+            {
+                "agent_name": settings.agent_name,
+                "tone": settings.tone,
+                "positioning": settings.positioning,
+                "topic": topic,
+            },
         )
-        draft = llm.generate(prompt.strip(), system_prompt=system_prompt, temperature=0.25)
+        draft = llm.generate(
+            prompt.strip(), system_prompt=prompt_spec.system_prompt, temperature=0.25
+        )
         title = _extract_title(draft, fallback=f"Draft on {topic}")
         file_name = f"{week_start.isoformat()}_{idx+1:02d}_{slugify(title)[:80]}.md"
         path = write_text(content_dir / file_name, draft.strip() + "\n")
+        quality = score_file(repo, artifact_type="content", artifact_path=path)
         repo.add_content(
             title=title,
             topic=topic,
             artifact_path=str(path),
-            metadata={"week_start": week_start.isoformat()},
+            metadata={
+                "week_start": week_start.isoformat(),
+                "prompt_name": prompt_spec.name,
+                "prompt_version": prompt_spec.version,
+                "quality_score": quality.score,
+            },
         )
         results.append(ContentResult(title=title, topic=topic, artifact_path=path))
     return results
