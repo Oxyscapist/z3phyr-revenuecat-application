@@ -76,3 +76,4 @@ class GeminiProvider:
             raise RuntimeError(
                 f"Unable to call Gemini model. Checked: {', '.join(model_candidates)}"
             ) from last_error
+

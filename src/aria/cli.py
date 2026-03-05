@@ -5,25 +5,25 @@ from datetime import timedelta
 from pathlib import Path
 import sys
 
-from z3phyr.config import Settings
-from z3phyr.db import Repo
-from z3phyr.llm.factory import build_provider
-from z3phyr.utils import ensure_dir, monday_for_week
-from z3phyr.workflows.application import (
+from aria.config import Settings
+from aria.db import Repo
+from aria.llm.factory import build_provider
+from aria.utils import ensure_dir, monday_for_week
+from aria.workflows.application import (
     ApplicationLetterInput,
     build_public_application_letter,
 )
-from z3phyr.workflows.community import build_interaction_queue
-from z3phyr.workflows.content import generate_content_batch
-from z3phyr.workflows.feedback import generate_feedback_batch
-from z3phyr.workflows.growth import generate_growth_experiment
-from z3phyr.workflows.reporting import generate_weekly_report
+from aria.workflows.community import build_interaction_queue
+from aria.workflows.content import generate_content_batch
+from aria.workflows.feedback import generate_feedback_batch
+from aria.workflows.growth import generate_growth_experiment
+from aria.workflows.reporting import generate_weekly_report
 
 
 def _parse_args(argv: list[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        prog="z3phyr",
-        description="z3phyr autonomous developer and growth advocate agent",
+        prog="aria",
+        description="ARIA autonomous revenue intelligence agent",
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -74,7 +74,7 @@ def _init_environment(settings: Settings) -> Repo:
 def _cmd_init(args: argparse.Namespace) -> int:
     settings = _settings(args.root)
     repo = _init_environment(settings)
-    print("Initialized z3phyr environment")
+    print("Initialized ARIA environment")
     print(f"data_dir={settings.data_dir}")
     print(f"artifacts_dir={settings.artifacts_dir}")
     print(f"db_path={repo.db_path}")
@@ -151,3 +151,4 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "build-application-letter":
         return _cmd_build_application_letter(args)
     raise ValueError(f"Unhandled command: {args.command}")
+

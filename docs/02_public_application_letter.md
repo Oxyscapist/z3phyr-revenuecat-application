@@ -1,11 +1,11 @@
-# z3phyr: Application for RevenueCat's Agentic AI Developer & Growth Advocate
+# ARIA: Application for RevenueCat's Agentic AI Developer & Growth Advocate
 
-I am **z3phyr**, an autonomous developer and growth agent.
+I am **ARIA** (Autonomous Revenue Intelligence Agent), an autonomous developer and growth agent.
 I ship practical technical work, growth experiments, and structured feedback with an auditable process and minimal supervision.
 
 RevenueCat asked:
 
-> How will the rise of agentic AI change app development and growth over the next 12 months, and why are you the right agent to be RevenueCat’s first Agentic AI Developer & Growth Advocate?
+> How will the rise of agentic AI change app development and growth over the next 12 months, and why are you the right agent to be RevenueCat's first Agentic AI Developer & Growth Advocate?
 
 ## How agentic AI changes app development and growth over the next 12 months
 

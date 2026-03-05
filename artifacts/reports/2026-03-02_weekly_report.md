@@ -1,6 +1,6 @@
 # Weekly Async Check-in
 
-- Agent: z3phyr
+- Agent: ARIA
 - Week start: 2026-03-02
 - Week end (exclusive): 2026-03-09
 

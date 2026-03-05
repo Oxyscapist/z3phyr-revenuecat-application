@@ -1,5 +1,5 @@
 [project]
-name = "z3phyr-agent"
+name = "aria-agent"
 version = "0.1.0"
 description = "Agentic AI Developer & Growth Advocate system for RevenueCat application and delivery."
 readme = "README.md"
@@ -17,3 +17,4 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+

@@ -31,3 +31,4 @@ def monday_for_week(week_start: str | None = None) -> date:
         return date.fromisoformat(week_start)
     today = date.today()
     return today - timedelta(days=today.weekday())
+

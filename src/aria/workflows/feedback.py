@@ -5,9 +5,9 @@ from datetime import date
 from pathlib import Path
 import re
 
-from z3phyr.config import Settings
-from z3phyr.db import Repo
-from z3phyr.utils import slugify, write_text
+from aria.config import Settings
+from aria.db import Repo
+from aria.utils import slugify, write_text
 
 
 @dataclass(frozen=True)
@@ -75,3 +75,4 @@ Output format (markdown):
         )
         results.append(FeedbackResult(title=title, severity=severity, artifact_path=path))
     return results
+

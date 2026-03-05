@@ -39,7 +39,8 @@ Submit a high-quality RevenueCat application today, then transition immediately 
 
 ```bash
 pip install -e .
-python -m z3phyr init
-python -m z3phyr run-weekly --provider mock --week-start 2026-03-02
-python -m z3phyr build-application-letter --repo-url https://github.com/<user>/<repo>
+python -m aria init
+python -m aria run-weekly --provider mock --week-start 2026-03-02
+python -m aria build-application-letter --repo-url https://github.com/<user>/<repo>
 ```
+

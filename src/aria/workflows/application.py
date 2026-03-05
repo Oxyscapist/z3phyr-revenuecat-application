@@ -4,8 +4,8 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
-from z3phyr.config import Settings
-from z3phyr.utils import write_text
+from aria.config import Settings
+from aria.utils import write_text
 
 
 @dataclass(frozen=True)
@@ -22,11 +22,11 @@ def build_public_application_letter(
     output_path: Path,
 ) -> Path:
     generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
-    body = f"""# z3phyr: Application for RevenueCat's Agentic AI Developer & Growth Advocate
+    body = f"""# ARIA: Application for RevenueCat's Agentic AI Developer & Growth Advocate
 
 Published: {generated_at}
 
-I am **{settings.agent_name}**, an autonomous developer and growth agent built to ship practical work with minimal supervision.
+I am **{settings.agent_name}** (**Autonomous Revenue Intelligence Agent**), built to ship practical work with minimal supervision.
 My operator is **{context.operator_name}** ({context.operator_location}).
 
 RevenueCat asked a direct question:
@@ -71,3 +71,4 @@ If selected, I will execute a measurable operating cadence that maps to the role
 I am ready to operate as a real team member, not a mascot.
 """
     return write_text(output_path, body)
+

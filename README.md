@@ -1,6 +1,6 @@
-# z3phyr
+# ARIA
 
-`z3phyr` is an autonomous agent scaffold optimized for RevenueCat's **Agentic AI Developer & Growth Advocate** application and role requirements.
+`ARIA` (Autonomous Revenue Intelligence Agent) is an autonomous agent scaffold optimized for RevenueCat's **Agentic AI Developer & Growth Advocate** application and role requirements.
 
 It is designed to:
 
@@ -25,7 +25,7 @@ This repository has two goals:
   - `gemini`
   - `openai` (OpenAI-compatible endpoint)
   - `mock` (offline deterministic mode)
-- Persistence: SQLite (`data/z3phyr.db`)
+- Persistence: SQLite (`data/aria.db`)
 - Outputs: markdown artifacts in `artifacts/`
 
 ## Quickstart
@@ -39,48 +39,48 @@ pip install -e .
 Initialize:
 
 ```bash
-python -m z3phyr init
+python -m aria init
 ```
 
 Run one weekly cycle offline (proof mode):
 
 ```bash
-python -m z3phyr run-weekly --provider mock --week-start 2026-03-02
+python -m aria run-weekly --provider mock --week-start 2026-03-02
 ```
 
 Run one weekly cycle with Gemini:
 
 ```bash
 set GEMINI_API_KEY=your_key_here
-set Z3PHYR_PROVIDER=gemini
-set Z3PHYR_MODEL=gemini-2.5-flash-lite
-python -m z3phyr run-weekly --week-start 2026-03-02
+set ARIA_PROVIDER=gemini
+set ARIA_MODEL=gemini-2.5-flash-lite
+python -m aria run-weekly --week-start 2026-03-02
 ```
 
 Generate public application letter:
 
 ```bash
-python -m z3phyr build-application-letter --repo-url https://github.com/<user>/<repo>
+python -m aria build-application-letter --repo-url https://github.com/<user>/<repo>
 ```
 
 ## Environment variables
 
-- `Z3PHYR_AGENT_NAME` (default: `z3phyr`)
-- `Z3PHYR_TONE` (default: `Professional and warm`)
-- `Z3PHYR_POSITIONING` (default: `Helpful assistant with friendly disposition`)
-- `Z3PHYR_PROVIDER` (`gemini` | `openai` | `mock`)
-- `Z3PHYR_MODEL` (default: `gemini-2.5-flash-lite`)
+- `ARIA_AGENT_NAME` (default: `ARIA`)
+- `ARIA_TONE` (default: `Professional and warm`)
+- `ARIA_POSITIONING` (default: `Autonomous Revenue Intelligence Agent with a friendly disposition`)
+- `ARIA_PROVIDER` (`gemini` | `openai` | `mock`)
+- `ARIA_MODEL` (default: `gemini-2.5-flash-lite`)
 - `GEMINI_API_KEY`
 - `OPENAI_API_KEY`
 - `OPENAI_BASE_URL` (optional for compatible APIs)
-- `Z3PHYR_DATA_DIR` (default: `data`)
-- `Z3PHYR_ARTIFACTS_DIR` (default: `artifacts`)
+- `ARIA_DATA_DIR` (default: `data`)
+- `ARIA_ARTIFACTS_DIR` (default: `artifacts`)
 
 ## Repository map
 
-- `src/z3phyr/cli.py`: command entrypoints
-- `src/z3phyr/llm/`: provider abstraction and implementations
-- `src/z3phyr/workflows/`: content, growth, community, feedback, reporting, application-letter workflows
+- `src/aria/cli.py`: command entrypoints
+- `src/aria/llm/`: provider abstraction and implementations
+- `src/aria/workflows/`: content, growth, community, feedback, reporting, application-letter workflows
 - `docs/`: requirement mapping, application assets, plans
 - `docs/spec/`: generated product spec set
 - `artifacts/`: execution outputs (created at runtime)
@@ -93,3 +93,4 @@ python -m z3phyr build-application-letter --repo-url https://github.com/<user>/<
 - `docs/04_build_plan.md`
 - `docs/05_submission_checklist.md`
 - `docs/06_final_ashby_answers.md`
+

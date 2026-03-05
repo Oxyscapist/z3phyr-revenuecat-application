@@ -1,6 +1,6 @@
 # Weekly Community Interaction Queue
 
-- Agent: z3phyr
+- Agent: ARIA
 - Week start: 2026-03-02
 - Target interactions: 50
 - Status: Human approval required before publishing

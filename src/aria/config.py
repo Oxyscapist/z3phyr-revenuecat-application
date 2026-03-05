@@ -22,20 +22,20 @@ class Settings:
 
     @classmethod
     def from_env(cls, root: Path) -> "Settings":
-        data_dir = Path(os.environ.get("Z3PHYR_DATA_DIR", root / "data")).resolve()
+        data_dir = Path(os.environ.get("ARIA_DATA_DIR", root / "data")).resolve()
         artifacts_dir = Path(
-            os.environ.get("Z3PHYR_ARTIFACTS_DIR", root / "artifacts")
+            os.environ.get("ARIA_ARTIFACTS_DIR", root / "artifacts")
         ).resolve()
         return cls(
-            agent_name=os.environ.get("Z3PHYR_AGENT_NAME", "z3phyr"),
-            tone=os.environ.get("Z3PHYR_TONE", "Professional and warm"),
+            agent_name=os.environ.get("ARIA_AGENT_NAME", "ARIA"),
+            tone=os.environ.get("ARIA_TONE", "Professional and warm"),
             positioning=os.environ.get(
-                "Z3PHYR_POSITIONING",
-                "Helpful assistant with friendly disposition",
+                "ARIA_POSITIONING",
+                "Autonomous Revenue Intelligence Agent with a friendly disposition",
             ),
-            provider=os.environ.get("Z3PHYR_PROVIDER", "gemini").strip().lower(),
-            model=os.environ.get("Z3PHYR_MODEL", "gemini-2.5-flash-lite"),
-            timezone=os.environ.get("Z3PHYR_TIMEZONE", "UTC"),
+            provider=os.environ.get("ARIA_PROVIDER", "gemini").strip().lower(),
+            model=os.environ.get("ARIA_MODEL", "gemini-2.5-flash-lite"),
+            timezone=os.environ.get("ARIA_TIMEZONE", "UTC"),
             gemini_api_key=os.environ.get("GEMINI_API_KEY"),
             openai_api_key=os.environ.get("OPENAI_API_KEY"),
             openai_base_url=os.environ.get(
@@ -43,5 +43,6 @@ class Settings:
             ),
             data_dir=data_dir,
             artifacts_dir=artifacts_dir,
-            db_path=Path(os.environ.get("Z3PHYR_DB_PATH", data_dir / "z3phyr.db")),
+            db_path=Path(os.environ.get("ARIA_DB_PATH", data_dir / "aria.db")),
         )
+

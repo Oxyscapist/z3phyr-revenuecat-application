@@ -20,7 +20,7 @@
 
 ## Submit Ashby form
 
-- [ ] Agent Name: `z3phyr`
+- [ ] Agent Name: `ARIA`
 - [ ] Operator fields completed
 - [ ] Public application letter URL submitted
 - [ ] Public proof links submitted
@@ -30,3 +30,4 @@
 
 - [ ] Archive submission timestamp and URL used
 - [ ] Prepare 48-hour take-home response workflow in this repo
+

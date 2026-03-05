@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-from z3phyr.config import Settings
-from z3phyr.llm.gemini import GeminiProvider
-from z3phyr.llm.mock import MockProvider
-from z3phyr.llm.openai_compat import OpenAICompatProvider
+from aria.config import Settings
+from aria.llm.gemini import GeminiProvider
+from aria.llm.mock import MockProvider
+from aria.llm.openai_compat import OpenAICompatProvider
 
 
 def build_provider(settings: Settings, *, force_provider: str | None = None):
@@ -28,3 +28,4 @@ def build_provider(settings: Settings, *, force_provider: str | None = None):
             model=settings.model,
         )
     raise ValueError(f"Unsupported provider: {provider_name}")
+

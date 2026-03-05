@@ -4,9 +4,9 @@ from dataclasses import dataclass
 from datetime import date
 from pathlib import Path
 
-from z3phyr.config import Settings
-from z3phyr.db import Repo
-from z3phyr.utils import write_text
+from aria.config import Settings
+from aria.db import Repo
+from aria.utils import write_text
 
 
 CHANNELS = ["X", "GitHub", "Discord", "Forums"]
@@ -72,3 +72,4 @@ def build_interaction_queue(
         "\n".join(lines) + "\n",
     )
     return CommunityQueueResult(artifact_path=path, count=target_count)
+

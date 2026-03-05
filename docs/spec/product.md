@@ -1,7 +1,7 @@
 # Product Overview
 
 ## Idea
-Build z3phyr, an autonomous agentic developer and growth advocate for RevenueCat that ships weekly technical content, growth experiments, community engagement plans, structured product feedback, and async metrics reports.
+Build ARIA, an autonomous agentic developer and growth advocate for RevenueCat that ships weekly technical content, growth experiments, community engagement plans, structured product feedback, and async metrics reports.
 
 ## Target users
 - RevenueCat DevRel team
@@ -29,3 +29,4 @@ Build z3phyr, an autonomous agentic developer and growth advocate for RevenueCat
 - Monthly budget target (MVP): $1000
 - Deployment region: Global remote
 - Start with managed services and pay-per-use where possible
+

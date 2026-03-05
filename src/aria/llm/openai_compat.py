@@ -45,3 +45,4 @@ class OpenAICompatProvider:
         if isinstance(content, str):
             return content.strip()
         raise RuntimeError("OpenAI-compatible response content is not a plain string.")
+

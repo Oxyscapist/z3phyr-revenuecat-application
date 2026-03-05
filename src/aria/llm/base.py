@@ -13,3 +13,4 @@ class LLMProvider(Protocol):
         system_prompt: str | None = None,
         temperature: float = 0.2,
     ) -> str: ...
+
