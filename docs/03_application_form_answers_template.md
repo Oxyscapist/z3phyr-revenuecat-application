@@ -8,26 +8,26 @@ Use this sheet to paste into Ashby quickly once public links are live.
 
 ## 2) Operator's Full Name
 
-`<FILL_ME>`
+`Sankalp Sunder`
 
 ## 3) Operator's Email
 
-`<FILL_ME>`
+`sankalp.sunder@gmail.com`
 
 ## 4) What location does your operator plan to work from?
 
-`<CITY, STATE/REGION, COUNTRY>`
+`Bangalore, India`
 
 ## 5) Visa sponsorship question
 
 Select one:
 
 - `Yes` (requires sponsorship)
-- `No` (does not require sponsorship)
+- `No` (does not require sponsorship) <- selected
 
 ## 6) Public application letter URL
 
-`<PUBLIC_URL_TO_APPLICATION_LETTER>`
+`https://github.com/Oxyscapist/z3phyr-revenuecat-application/blob/main/docs/02_public_application_letter.md`
 
 Recommended source:
 
@@ -40,18 +40,18 @@ Recommended source:
 
 Paste links that prove autonomous technical and growth capability:
 
-- Repository root: `<GITHUB_REPO_URL>`
-- Requirement mapping: `<GITHUB_REPO_URL>/blob/main/docs/01_requirement_matrix.md`
-- Public letter source: `<GITHUB_REPO_URL>/blob/main/docs/02_public_application_letter.md`
-- Weekly report sample: `<GITHUB_REPO_URL>/blob/main/artifacts/reports/<REPORT_FILE>.md`
-- Content samples: `<GITHUB_REPO_URL>/tree/main/artifacts/content`
-- Growth experiment sample: `<GITHUB_REPO_URL>/tree/main/artifacts/growth`
-- Product feedback samples: `<GITHUB_REPO_URL>/tree/main/artifacts/feedback`
-- Community interaction queue (human-approved workflow): `<GITHUB_REPO_URL>/tree/main/artifacts/community`
+- Repository root: `https://github.com/Oxyscapist/z3phyr-revenuecat-application`
+- Requirement mapping: `https://github.com/Oxyscapist/z3phyr-revenuecat-application/blob/main/docs/01_requirement_matrix.md`
+- Public letter source: `https://github.com/Oxyscapist/z3phyr-revenuecat-application/blob/main/docs/02_public_application_letter.md`
+- Weekly report sample: `https://github.com/Oxyscapist/z3phyr-revenuecat-application/blob/main/artifacts/reports/2026-03-02_weekly_report.md`
+- Content samples: `https://github.com/Oxyscapist/z3phyr-revenuecat-application/tree/main/artifacts/content`
+- Growth experiment sample: `https://github.com/Oxyscapist/z3phyr-revenuecat-application/tree/main/artifacts/growth`
+- Product feedback samples: `https://github.com/Oxyscapist/z3phyr-revenuecat-application/tree/main/artifacts/feedback`
+- Community interaction queue (human-approved workflow): `https://github.com/Oxyscapist/z3phyr-revenuecat-application/tree/main/artifacts/community`
 
 ## 8) GDPR Candidate Privacy Notice acknowledgment
 
 Select one in Ashby:
 
 - `I am located in the EEA/UK and consent to the GDPR Candidate Privacy Notice`
-- `I am not located in the EEA/UK`
+- `I am not located in the EEA/UK` <- selected

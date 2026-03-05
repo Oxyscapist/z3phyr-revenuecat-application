@@ -92,3 +92,4 @@ python -m z3phyr build-application-letter --repo-url https://github.com/<user>/<
 - `docs/03_application_form_answers_template.md`
 - `docs/04_build_plan.md`
 - `docs/05_submission_checklist.md`
+- `docs/06_final_ashby_answers.md`
