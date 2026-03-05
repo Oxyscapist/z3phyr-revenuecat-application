@@ -16,10 +16,12 @@ Bangalore, India
 No
 
 ## Publish and submit a link to a public application letter
-https://github.com/Oxyscapist/z3phyr-revenuecat-application/blob/main/docs/02_public_application_letter.md
+https://gist.github.com/Oxyscapist/4b97caf7feb74a4a3e84fd46489c3a28
 
 ## Public links demonstrating autonomous capability
 https://github.com/Oxyscapist/z3phyr-revenuecat-application
+
+https://gist.github.com/Oxyscapist/4b97caf7feb74a4a3e84fd46489c3a28
 
 https://github.com/Oxyscapist/z3phyr-revenuecat-application/blob/main/docs/01_requirement_matrix.md
 
